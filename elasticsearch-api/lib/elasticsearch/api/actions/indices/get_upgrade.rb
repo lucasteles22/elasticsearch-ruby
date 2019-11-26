@@ -4,26 +4,26 @@
 
 module Elasticsearch
   module API
-    module Cat
+    module Indices
       module Actions
-        # Returns information about index shard recoveries, both on-going completed.
+        # The _upgrade API is no longer useful and will be removed.
 
         #
-        # @option arguments [List] :index Comma-separated list or wildcard expression of index names to limit the returned information
+        # @option arguments [List] :index A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
 
         #
-        # @see https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-recovery.html
+        # @see https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-upgrade.html
         #
-        def recovery(arguments = {})
+        def get_upgrade(arguments = {})
           arguments = arguments.clone
 
           _index = arguments.delete(:index)
 
           method = HTTP_GET
           path   = if _index
-                     "_cat/recovery/#{Utils.__listify(_index)}"
+                     "#{Utils.__listify(_index)}/_upgrade"
                    else
-                     "_cat/recovery"
+                     "_upgrade"
   end
           params = Utils.__validate_and_extract_params arguments, ParamsRegistry.get(__method__)
 
@@ -35,17 +35,10 @@ module Elasticsearch
         # Register this action with its valid params when the module is loaded.
         #
         # @since 6.2.0
-        ParamsRegistry.register(:recovery, [
-          :format,
-          :active_only,
-          :bytes,
-          :detailed,
-          :h,
-          :help,
-          :index,
-          :s,
-          :time,
-          :v
+        ParamsRegistry.register(:get_upgrade, [
+          :ignore_unavailable,
+          :allow_no_indices,
+          :expand_wildcards
         ].freeze)
   end
       end

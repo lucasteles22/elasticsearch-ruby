@@ -5,16 +5,16 @@
 module Elasticsearch
   module API
     module Actions
-      # Returns basic information about the cluster.
+      # Returns available script types, languages and contexts
 
       #
-      # @see https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+      # @see [TODO]
       #
-      def info(arguments = {})
+      def get_script_languages(arguments = {})
         arguments = arguments.clone
 
         method = HTTP_GET
-        path   = ""
+        path   = "_script_language"
         params = {}
 
         body = nil
