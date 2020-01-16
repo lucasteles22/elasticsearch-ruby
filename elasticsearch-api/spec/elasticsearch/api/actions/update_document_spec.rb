@@ -53,16 +53,8 @@ describe 'client#update' do
       'foo/bar/1/_update'
     end
 
-    let(:params) do
-      { version: 100 }
-    end
-
-    let(:body) do
-      {}
-    end
-
     it 'performs the request' do
-      expect(client_double.update(index: 'foo', type: 'bar', id: '1', version: 100, body: {}))
+      expect(client_double.update(index: 'foo', type: 'bar', id: '1', body: {}))
     end
   end
 
